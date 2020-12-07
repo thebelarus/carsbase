@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+<body>
+	{% if cars %}
+		<h1>
+		{% for manufacture in manufactures %}
+			<a href="{% url 'by_manufacture' manufacture%}">{{manufacture}}</a>
+		{% endfor %}
+			<a href="{% url 'add_car'%}">Add car</a>
+		</h1>
+	{% endif %}		
+	{% if cars %}
+		{% for car in cars %}
+			<h2>{{car.model}}</h2>
+			<p>body: {{car.body}}</p>
+			<p>color: {{car.color}}</p>
+			<p>fuel type: {{car.fuel_type}}</p>
+			<hr>
+		{% endfor %}
+	{% endif %}
+</body>
+</html>
