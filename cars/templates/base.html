@@ -4,24 +4,41 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Document</title>
+
+	{% load bootstrap4 %}
+
+	{% bootstrap_css %}
+	{% bootstrap_javascript jquery='full' %}
+
 </head>
 <body>
-	{% if cars %}
-		<h1>
-		{% for manufacture in manufactures %}
-			<a href="{% url 'by_manufacture' manufacture%}">{{manufacture}}</a>
-		{% endfor %}
-			<a href="{% url 'add_car'%}">Add car</a>
-		</h1>
-	{% endif %}		
-	{% if cars %}
-		{% for car in cars %}
-			<h2>{{car.model}}</h2>
-			<p>body: {{car.body}}</p>
-			<p>color: {{car.color}}</p>
-			<p>fuel type: {{car.fuel_type}}</p>
-			<hr>
-		{% endfor %}
-	{% endif %}
+	<header>
+			<ul class="nav justify-content-center">
+  					<li class="nav-item">  
+						<h1><a class="nav-link" href="{% url 'all_cars'%}">All cars</a></h1>
+					</li>
+					<li class="nav-item">  
+						<h1><a  class="nav-link" href="{% url 'add_car'%}">Add car</a></h1>
+					</li>					
+					<li class="nav-item">  
+						<h1><a  class="nav-link" href="{% url 'add_color'%}">Add color</a></h1>
+					</li>
+					<li class="nav-item">  
+						<h1><a  class="nav-link" href="{% url 'add_body'%}">Add body</a></h1>
+					</li>
+					<li class="nav-item">  
+						<h1><a  class="nav-link" href="{% url 'add_manufacture'%}">Add manufacture</a></h1>
+					</li>
+					<li class="nav-item">  
+						<h1><a  class="nav-link" href="{% url 'add_fueltype'%}">Add fuel type</a></h1>
+					</li>															
+			</ul>
+		<nav class="navbar navbar-light bg-light">
+
+	</header>
+	<div class="container">
+		{% block content %}
+		{% endblock %}
+	</div>
 </body>
 </html>

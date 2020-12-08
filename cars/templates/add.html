@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+
+		 {% load crispy_forms_tags %}
+
+		<form method="post" action="." class="uniForm">
+		    {{ form|crispy }}
+		    {% csrf_token %}
+		    <button type="submit" class="btn btn-primary">Add</button>
+		</form>
+		<hr>
+		{% for item in data %}
+			<h3><li>{{ item }}</li></h3>
+		{% endfor %}
+{% endblock %}

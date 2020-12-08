@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Manufacture, Model, Body, FuelType, Color, Car
+from .models import Manufacture, Body, FuelType, Color, Car
 
 class FuelTypeAdmin(admin.ModelAdmin):
 	list_display = ('name',)
@@ -14,7 +14,6 @@ class CarAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Manufacture)
-admin.site.register(Model)
 admin.site.register(Body)
 admin.site.register(FuelType, FuelTypeAdmin)
 admin.site.register(Color)

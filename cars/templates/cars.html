@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}		
+	{% if cars %}
+		{% for car in cars %}
+			<h2>Brand: {{car.manufacture}}</h2>
+			<h4>Model: {{car.model}}</h4>
+			<h4>Body: {{car.body}}</h4>
+			<h4>Color: {{car.color}}</h4>
+			<h4>Fuel type: {{car.fuel_type}}</h4>
+			<hr>
+		{% endfor %}
+	{% else %}
+		<h2>No cars</h2>
+	{% endif %}
+{% endblock %}

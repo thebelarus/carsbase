@@ -1,54 +1,74 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.shortcuts import get_object_or_404
+# from django. auth.decorators import login_required
 from . import models
 from . import forms
 
+def get_all_manufactures():
+    return models.Manufacture.objects.all()
+
 def get_all_cars(request):
     cars = models.Car.objects.all()
-    manufacture_all =  models.Manufacture.objects.all() 
-    context = {'cars':cars,'manufactures':manufacture_all}
-    return render(request, 'base.html', context)
+    context = {'cars':cars,'manufactures':get_all_manufactures()}
+    return render(request, 'cars.html', context)
 
 def get_all_cars_by_manufacture(request, manufacture):
-    manufacture =  models.Manufacture.objects.get(name=manufacture) 
-    manufacture_all =  models.Manufacture.objects.all() 
+    manufacture = get_object_or_404(models.Manufacture, name=manufacture)
     models_ = models.Model.objects.filter(manufacture=manufacture)
     cars = models.Car.objects.filter(model__in=models_)
-    context = {'cars':cars,'manufactures':manufacture_all}
-    return render(request, 'base.html', context)
+    context = {'cars':cars,'manufactures':get_all_manufactures()}
+    return render(request, 'cars.html', context)
 
 def add_car(request):
     if request.method == 'POST':
         form = forms.CarForm(request.POST)
-    # manufacture =  models.Manufacture.objects.get(name=manufacture) 
-    # manufacture_all =  models.Manufacture.objects.all() 
-    # models_ = models.Model.objects.filter(manufacture=manufacture)
-    # cars = models.Car.objects.filter(model__in=models_)
-    # context = {'cars':cars,'manufactures':manufacture_all}
+        new_car = form.save()
+        return redirect('add_car')
+
     else:
         form_class = forms.CarForm
-        context = {'form':form_class}
-        return render(request, 'car_add.html', context)
+        context = {'form':form_class, 'manufactures':get_all_manufactures()}
+        return render(request, 'add.html', context)
 
+def add_color(request):
+    if request.method == 'POST':
+        form = forms.ColorForm(request.POST)
+        new_color = form.save()
+        return redirect('add_color')
+    else:
+        form_class = forms.ColorForm
+        context = {'form':form_class, 'data':models.Color.objects.all()}
+        return render(request, 'add.html', context)
 
-# def userDetails(request):
+def add_manufacture(request):
+    if request.method == 'POST':
+        form = forms.ManufactureForm(request.POST)
+        new_manufacture = form.save()
+        return redirect('add_manufacture')
+    else:
+        form_class = forms.ManufactureForm
+        context = {'form':form_class, 'data':models.Manufacture.objects.all()}
+        return render(request, 'add.html', context)
 
-#     if request.method == 'POST':
-#         form = UserModelForm(request.POST)
-#         if form.is_valid():
+def add_body(request):
+    if request.method == 'POST':
+        form = forms.BodyForm(request.POST)
+        new_body = form.save()
+        return redirect('add_body')
+    else:
+        form_class = forms.BodyForm
+        context = {'form':form_class, 'data':models.Body.objects.all()}
+        return render(request, 'add.html', context)
 
-#             u = form.save()
-#             users = UserDetails.objects.all()
-
-#             return render(request, 'display.html', {'users': users})
-
-            
-
-#     else:
-#         form_class = UserModelForm
-
-#     return render(request, 'userdetails.html', {
-#         'form': form_class,
-#     })    
+def add_fueltype(request):
+    if request.method == 'POST':
+        form = forms.FuelType(request.POST)
+        new_fueltype = form.save()
+        return redirect('add_fueltype')
+    else:
+        form_class = forms.FuelType
+        context = {'form':form_class, 'data':models.FuelType.objects.all()}
+        return render(request, 'add.html', context) 
 
 def get_all_cars_by_color(request, color):
     manufacture =  models.Color.objects.get(name=manufacture) 
